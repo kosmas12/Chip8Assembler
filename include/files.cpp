@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 std::ifstream openAsmFile(std::string fname) {
-    std::cout << "Opening file: " << fname << std::endl;
+    std::cout << "Assembly code file: " << fname << std::endl;
     std::ifstream asmFile (fname);
     return asmFile;
 }
@@ -63,5 +63,6 @@ void readFile(std::string fName) {
         assembleLine(curLine, curLineNum, romName);
         curLineNum++;
     }
+    std::cout <<"Succesfully wrote machine code to " << romName << ". Assembly complete!" << std::endl;
 
 }
