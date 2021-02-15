@@ -4,6 +4,7 @@
 
 #include "files.h"
 #include "assembler.h"
+#include <stdio.h>
 
 std::ifstream openAsmFile(std::string fname) {
     std::cout << "Opening file: " << fname << std::endl;
@@ -11,20 +12,27 @@ std::ifstream openAsmFile(std::string fname) {
     return asmFile;
 }
 
-void writeLnToROM(const std::string& romName, unsigned int data) {
+void writeLnToROM(const std::string& romName, uint16_t data) {
 
-    std::fstream romFile (romName, std::ios::out|std::ios::binary);
-    romFile.seekp(0, std::ios::end);
+    FILE *romFile = fopen(romName.c_str(), "wb");
+    fseek(romFile, 0, SEEK_END);
 
     int n = 1;
     // Host machine is little endian if true
     if(*(char *)&n == 1) {
         // Bit shift instruction because CHIP-8 is big endian
-        data = data << 8;
+        data = swapBytes(data);
     }
 
-    romFile << std::hex << std::uppercase << data;
-    romFile.close();
+    fwrite(&data, 1, sizeof(data), romFile);
+    fclose(romFile);
+}
+
+uint16_t swapBytes(uint16_t number) {
+    uint16_t result;
+    result = (number >> 8) | (number << 8);
+
+    return result;
 }
 
 void writeHexDigitToROM(const std::string& romName, unsigned char digit) {

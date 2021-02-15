@@ -12,6 +12,13 @@ Chip8Instruction instructions[] = {
         {.machineCode=0x0, .asmInstruction="SYS", .firstNibble=0x0},
 };
 
+uint16_t swap_bytes(uint16_t number) {
+    uint16_t result;
+    result = (number >> 8) | (number << 8);
+
+    return result;
+}
+
 void assembleLine(std::string line, int lineNum, std::string romName) {
     std::string instruction;
 

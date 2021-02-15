@@ -10,7 +10,7 @@
 void assembleLine(std::string line, int lineNum, std::string romName);
 
 typedef struct {
-    unsigned int machineCode;
+    uint16_t machineCode;
     std::string asmInstruction;
     unsigned char firstNibble;
     unsigned char lastNibble;
