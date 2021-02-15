@@ -2,6 +2,9 @@
 A FOSS assembler for the CHIP-8
 
 # Syntax
+
+Keep in mind, the carry flag is register `VF`.
+
 | Instruction      | Description                                                                                                      | Parameter(s)                          |
 | ---------------- | -----------------------------------------------------------------------------------------------------------------| --------------------------------------|
 | CLSC             | CLear the SCreen.                                                                                                |                                       |
