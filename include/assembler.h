@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-void assembleLine(std::string line, int lineNum, std::string romName);
+int assembleLine(const std::string& line, int lineNum, const std::string& romName);
 
 
 typedef struct {
