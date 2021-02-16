@@ -12,9 +12,16 @@ std::ifstream openAsmFile(std::string fname) {
     return asmFile;
 }
 
-void writeLnToROM(const std::string& romName, uint16_t data) {
+void writeLnToROM(const std::string& romName, uint16_t data, int lineNum) {
 
-    FILE *romFile = fopen(romName.c_str(), "wb");
+    FILE *romFile = nullptr;
+
+    if (lineNum == 1) {
+        romFile = fopen(romName.c_str(), "wb");
+    }
+    else {
+        romFile = fopen(romName.c_str(), "ab+");
+    }
     fseek(romFile, 0, SEEK_END);
 
     int n = 1;

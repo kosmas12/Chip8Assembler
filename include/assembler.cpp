@@ -61,7 +61,7 @@ void assembleLine(std::string line, int lineNum, std::string romName) {
     for (int i = 0; i < sizeof(instructions)/sizeof(Chip8Instruction); i++) {
         if (instructions[i].asmInstruction == instruction) {
             if (instructions[i].asmInstruction == "CLSC" || instructions[i].asmInstruction == "RTRN") {
-                writeLnToROM(romName, instructions[i].machineCode);
+                writeLnToROM(romName, instructions[i].machineCode, lineNum);
             }
             break;
         }

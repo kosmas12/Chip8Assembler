@@ -9,7 +9,7 @@
 #include <fstream>
 
 std::ifstream openAsmFile(std::string fname);
-void writeLnToROM(const std::string& romName, uint16_t data);
+void writeLnToROM(const std::string& romName, uint16_t data, int lineNum);
 uint16_t swapBytes(uint16_t number);
 void writeHexDigitToROM(const std::string& romName, unsigned char digit);
 void readFile(std::string fName);
