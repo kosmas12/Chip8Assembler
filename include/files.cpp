@@ -57,9 +57,9 @@ void readFile(std::string fName) {
     std::string curLine;
     std::string romName;
 
-    unsigned long dotPlace = fName.length()-4;
+    unsigned long dotPlace = fName.find('.');
 
-    romName = fName.erase(dotPlace, 4);
+    romName = fName.erase(dotPlace);
 
     romName += ".ch8";
 
