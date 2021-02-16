@@ -4,7 +4,7 @@
 
 #include "files.h"
 #include "assembler.h"
-#include <stdio.h>
+#include <cstdio>
 
 std::ifstream openAsmFile(std::string fname) {
     std::cout << "Assembly code file: " << fname << std::endl;
@@ -66,9 +66,15 @@ void readFile(std::string fName) {
     int curLineNum = 1;
     while (std::getline(fp, curLine))
     {
-        assembleLine(curLine, curLineNum, romName);
+        if (assembleLine(curLine, curLineNum, romName) == 1) {
+            return;
+        }
         curLineNum++;
     }
-    std::cout <<"Succesfully wrote machine code to " << romName << ". Assembly complete!" << std::endl;
+    if (curLineNum == 1) {
+        std::cout << "Empty source file given. Exiting..." << std::endl;
+        return;
+    }
+    std::cout << "Succesfully wrote machine code to " << romName << ". Assembly complete!" << std::endl;
 
 }

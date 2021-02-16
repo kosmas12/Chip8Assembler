@@ -5,6 +5,7 @@
 #include "assembler.h"
 #include "files.h"
 #include <iostream>
+#include <sstream>
 
 // Complete list of instructions for the CHIP-8
 Chip8Instruction instructions[] = {
@@ -53,10 +54,21 @@ uint16_t swap_bytes(uint16_t number) {
     return result;
 }
 
-void assembleLine(std::string line, int lineNum, std::string romName) {
+int assembleLine(const std::string& line, int lineNum, const std::string& romName) {
     std::string instruction;
 
-    instruction = line.substr(0, 4);
+    std::stringstream noNewlineStream;
+    // Operator << discards newline
+    noNewlineStream << line;
+
+    std::string noNewlineLine = noNewlineStream.str();
+
+    if (noNewlineLine.empty()) {
+        std::cout << lineNum << " is an empty line, skipping..." << std::endl;
+        return 0;
+    }
+
+    instruction = noNewlineLine.substr(0, 4);
 
     for (int i = 0; i < sizeof(instructions)/sizeof(Chip8Instruction); i++) {
         if (instructions[i].asmInstruction == instruction) {
@@ -66,7 +78,9 @@ void assembleLine(std::string line, int lineNum, std::string romName) {
             break;
         }
         else if(instructions[i].asmInstruction != instruction && i == (sizeof(instructions)/sizeof(Chip8Instruction))-1) {
-            printf("Invalid instruction on line %d!\n", lineNum);
+            std::cout << "Invalid instruction on line " << lineNum << "!" << std::endl;
+            return 1;
         }
     }
+    return 0;
 }
